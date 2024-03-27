@@ -8,28 +8,14 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/a072a77b-ca29-47df-be65-6d310d067d78";
-      fsType = "btrfs";
-      options = [ "subvol=@" ];
-    };
-
-  boot.initrd.luks.devices."luks-d6573cf8-25f0-4ffc-8046-ac3a4db1e964".device = "/dev/disk/by-uuid/d6573cf8-25f0-4ffc-8046-ac3a4db1e964";
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/97EB-7DB5";
-      fsType = "vfat";
-    };
-
-  fileSystems."/var/lib/docker/btrfs" =
-    { device = "/@/var/lib/docker/btrfs";
-      fsType = "none";
-      options = [ "bind" ];
+    { device = "/dev/disk/by-uuid/43a6d5ae-387a-4f49-a820-0f6b659bd2c8";
+      fsType = "ext4";
     };
 
   swapDevices = [ ];
@@ -39,22 +25,9 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-1226a402c029.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-2b3f4046f433.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-51282d325cc2.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-63c2bda441eb.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-d75c54499f6b.useDHCP = lib.mkDefault true;
-  # networking.interfaces.br-e785a29e67a3.useDHCP = lib.mkDefault true;
-  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp2s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.veth2bbffbf.useDHCP = lib.mkDefault true;
-  # networking.interfaces.veth2dd9e3a.useDHCP = lib.mkDefault true;
-  # networking.interfaces.veth407864a.useDHCP = lib.mkDefault true;
-  # networking.interfaces.veth7c42908.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vetha0fd59c.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vethcced4f1.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vethe323c8f.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

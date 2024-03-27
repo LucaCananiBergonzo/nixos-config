@@ -5,7 +5,7 @@
 
   outputs = inputs@{ self, nixpkgs }: {
     nixosConfigurations = {
-      pc1 = nixpkgs.lib.nixosSystem {
+      lucaPC = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         system = "x86_64-linux";
         modules = [ ./configuration.nix ];
