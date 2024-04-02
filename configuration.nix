@@ -29,7 +29,7 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "pt_BR.UTF-8";
-  
+
   console = {
     # font = "Lat2-Terminus16";
     # keyMap = "br";
@@ -80,6 +80,7 @@
     gnome.gnome-software
     firefox
     google-chrome
+    docker-compose
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
